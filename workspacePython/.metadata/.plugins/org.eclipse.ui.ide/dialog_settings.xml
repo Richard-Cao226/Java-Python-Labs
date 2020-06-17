@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\Users\Richard\Dropbox\workspacePython\ASCIIArt"/>
+		<item value="C:\Users\Richard\Dropbox\workspacePython\Blackjack Project"/>
+		<item value="C:\Users\Richard\Dropbox\workspacePython\Ch49C_2DArrays_Ex1to5"/>
+		<item value="C:\Users\Richard\Dropbox\workspacePython\Ch54_ArrayList"/>
+		<item value="C:\Users\rcao266\Dropbox\workspacePython\Ch48_ArraysAsParameters"/>
+		<item value="C:\Users\rcao266\Dropbox\workspacePython\Ch09a_VarAssign"/>
+		<item value="C:\Users\Mark_Kwong\Dropbox\LHS Shared New\PythonWorkspace\Basic Test Case"/>
+		<item value="C:\Users\Mark_Kwong\Dropbox\LHS Shared New\PythonWorkspace"/>
+	</list>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
+		</list>
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item key="DIALOG_X_ORIGIN" value="658"/>
+		<item key="DIALOG_Y_ORIGIN" value="341"/>
+	</section>
+</section>

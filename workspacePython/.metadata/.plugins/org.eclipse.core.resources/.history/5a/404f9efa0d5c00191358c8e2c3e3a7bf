@@ -1,0 +1,207 @@
+import java.util.*;
+
+/**
+ * Chapter 14 - Boolean Expressions Programming Exercises 1-4.
+ * 
+ * @author TODO Richard Cao
+ * @version TODO 3/27
+ * 
+ * @author Period - TODO 6
+ * @author Assignment - Ch14Ex1to4
+ * 
+ * @author Sources - TODO list collaborators
+ */
+public class Ch14Ex1to4
+{
+    Scanner scan;
+
+    /**
+     * Constructs a Scanner for input from the console.
+     */
+    public Ch14Ex1to4()
+    {
+        scan = new Scanner( System.in );
+    }
+
+    /**
+     * Constructs a Scanner to evaluate passed input (used for testing).
+     * 
+     * @param str  input for the various methods
+     */
+    public Ch14Ex1to4( String str )
+    {
+        scan = new Scanner( str );
+    }
+
+    /**
+     * TODO Description
+     */
+    public void checkCharge()
+    {
+    	double checking, savings, charge = 0.0;
+        System.out.println("Enter balance in checking account:");
+        checking = scan.nextDouble();
+        System.out.println(("Enter balance in savings account:"));
+        savings = scan.nextDouble();
+        if(checking <= 1000 && savings <= 1500) {
+        	charge = 0.15;
+        }
+        System.out.println("The service charge is $"+charge+".");
+    }
+
+    /**
+     * TODO Description
+     */
+    public void tirePressure()
+    {
+    	int rightF, leftF, rightR, leftR;
+        System.out.println("Input right front pressure");
+        rightF = scan.nextInt();
+        System.out.println("Input left front pressure");
+        leftF = scan.nextInt();
+        System.out.println("Input right rear pressure");
+        rightR = scan.nextInt();
+        System.out.println("Input left rear pressure");
+        leftR = scan.nextInt();
+        if(rightF == leftF && rightR == leftR) {
+        	System.out.println("Inflation is OK");
+        } else {
+        	System.out.println("Inflation is BAD");
+        }
+        
+    }
+
+    /**
+     * TODO Description
+     */
+    public void moreTirePressure()
+    {
+    	int rightF, leftF, rightR, leftR;
+    	boolean goodPressure = true;
+        System.out.println("Input right front pressure");
+        rightF = scan.nextInt();
+        if(rightF < 35 || rightF > 45) {
+        	System.out.println("Warning: pressure is out of range");
+        	goodPressure = false;
+        }
+        System.out.println("Input left front pressure");
+        leftF = scan.nextInt();
+        if(leftF < 35 || leftF > 45) {
+        	System.out.println("Warning: pressure is out of range");
+        	goodPressure = false;
+        }
+        System.out.println("Input right rear pressure");
+        rightR = scan.nextInt();
+        if(rightR < 35 || rightR > 45) {
+        	System.out.println("Warning: pressure is out of range");
+        	goodPressure = false;
+        }
+        System.out.println("Input left rear pressure");
+        leftR = scan.nextInt();
+        if(leftR < 35 || leftR > 45) {
+        	System.out.println("Warning: pressure is out of range");
+        	goodPressure = false;
+        }
+        if(rightF == leftF && rightR == leftR && goodPressure) {
+        	System.out.println("Inflation is OK");
+        } else {
+        	System.out.println("Inflation is BAD");
+        }
+    }
+
+    /**
+     * TODO Description
+     */
+    public void pressureIsBuilding()
+    {
+    	int rightF, leftF, rightR, leftR;
+        System.out.println("Input right front pressure");
+        rightF = scan.nextInt();
+        if(rightF < 35 || rightF > 45) {
+        	System.out.println("Warning: pressure is out of range");
+        }
+        System.out.println("Input left front pressure");
+        leftF = scan.nextInt();
+        if(leftF < 35 || leftF > 45) {
+        	System.out.println("Warning: pressure is out of range");
+        }
+        System.out.println("Input right rear pressure");
+        rightR = scan.nextInt();
+        if(rightR < 35 || rightR > 45) {
+        	System.out.println("Warning: pressure is out of range");
+        }
+        System.out.println("Input left rear pressure");
+        leftR = scan.nextInt();
+        if(leftR < 35 || leftR > 45) {
+        	System.out.println("Warning: pressure is out of range");
+        }
+        if(Math.abs(rightF - leftF) <= 3 && Math.abs(rightR - leftR) <= 3) {
+        	System.out.println("Inflation is OK");
+        } else {
+        	System.out.println("Inflation is BAD");
+        }
+    }
+
+    /**
+     * Testing method: instantiates a Ch14Ex1to4 object and then
+     * invokes each method.
+     * 
+     * @param args  command line parameters (not used)
+     */
+    public static void main( String[] args )
+    {
+        Scanner kbd = new Scanner( System.in );
+        boolean done = false;
+
+        Ch14Ex1to4 exercise = new Ch14Ex1to4();
+
+        do
+        {
+            System.out.println();
+            System.out.println();
+            System.out.println( "Make a selection" );
+            System.out.println();
+            System.out.println( "   (1) Check Charge" );
+            System.out.println( "   (2) Tire Pressure" );
+            System.out.println( "   (3) More Tire Pressure" );
+            System.out.println( "   (4) The Pressure is Building" );
+            System.out.println( "   (Q) Quit" );
+            System.out.println();
+            System.out.print( "Enter a choice:  " );
+            String response = kbd.nextLine();
+
+            if ( response.length() > 0 )
+            {
+                System.out.println();
+
+                switch ( response.charAt( 0 ) )
+                {
+                    case '1':
+                        exercise.checkCharge();
+                        break;
+                    case '2':
+                        exercise.tirePressure();
+                        break;
+                    case '3':
+                        exercise.moreTirePressure();
+                        break;
+                    case '4':
+                        exercise.pressureIsBuilding();
+                        break;
+                    default:
+                        if ( response.toLowerCase().charAt( 0 ) == 'q' )
+                        {
+                            done = true;
+                        }
+                        else
+                        {
+                            System.out.print( "Invalid Choice" );
+                        }
+                        break;
+                }
+            }
+        } while ( !done );
+        
+        System.out.println( "Goodbye!" );
+    }
+}

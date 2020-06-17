@@ -1,0 +1,287 @@
+'''
+Created on Feb 6, 2019
+Finished all 4 classes
+Finished BlackjackGame() function
+Added betting feature
+Added doubling down feature
+@author: Richard Cao
+'''
+from card import Card
+from cards import Cards
+from player import Player
+import random
+
+# make a BlackjackCard Class inherit from Card
+class BlackjackCard(Card):
+    def getValue(self):
+        if self.rank == 'A':
+            return 11
+        elif self.rank in 'JQK10':
+            return 10
+        elif self.rank in '23456789':
+            return int(self.rank)
+        
+
+# make a BlackjackHand Class
+class BlackjackHand(Cards):
+    # gets total value of a set of cards
+    def getTotalWithAce(self):
+        # sort Aces to the bottom of hand
+        sortedCards = []
+        for card in self.cards:
+            if card.rank == 'A':
+                sortedCards.append(card)
+            else:
+                sortedCards.insert(0,card)
+        # calculate total value of hand
+        total = 0
+        for card in sortedCards:
+            if card.rank == 'A' and total + 11 > 21:
+                total += 1
+            else:
+                total += card.getValue()
+        return total
+    
+    # determines whether value of hand is over 21
+    def bust(self):
+        if self.getTotalWithAce() > 21:
+            return True
+        else:
+            return False
+    
+# make a BlackjackPlayer Class
+class BlackjackPlayer(Player):
+    def __init__(self, name, amount):
+        self.name = name
+        self.money = amount
+        self.hand = BlackjackHand()
+    def tossHand(self):
+        self.hand = BlackjackHand()
+    def printHand(self):
+        print('{} => {}'.format(self,self.hand.getTotalWithAce()))
+    # ask player if they want to hit
+    def askHit(self):
+        hit = input(self.name+', would you like to hit? (y/n) ')
+        while(1):
+            if hit == 'y':
+                return True
+            elif hit == 'n':
+                return False
+            else:
+                hit = input('Please enter a valid input. ')
+      
+# make a BlackjackDealer Class 
+class BlackjackDealer(BlackjackPlayer):
+    # determine whether dealer has to hit or not
+    def askHit(self):
+        if self.hand.getTotalWithAce() < 17:
+            return True
+        else:
+            return False
+
+
+# make a BlackjackGame function
+def BlackjackGame():
+    
+    # introduction
+    print('Welcome to Blackjack!')
+    playerName = input('What is your name? ')
+    print('Hi', playerName+'!')    
+    
+    # make the 2 players
+    dealer = BlackjackDealer("Dealer", 0)
+    player = BlackjackPlayer(playerName, 0)
+    
+    # ask player how much money they want to start with
+    print('The betting limits for each round are $2 to $500.')
+    playerMoney = input('How much money would you like to start with? ')
+    while(1):
+        try:
+            playerMoney = int(playerMoney)
+            break
+        except:
+            playerMoney = input('Please enter a number. ')
+    player.addMoney(playerMoney)
+    
+    # ask how many rounds
+    rounds = input('How many rounds would you like to play? ')
+    while(1):
+        try:
+            rounds = int(rounds)
+            break
+        except:
+            rounds = input('Please enter a number. ')
+    print()
+    
+    # make an empty deck of cards
+    deck = BlackjackHand()
+    
+    # initialize player scores
+    dealerScore = 0
+    playerScore = 0
+    
+    for round in range(1,rounds+1):
+        # if deck is low on cards, shuffle new deck
+        if len(deck.cards) < 16:
+            deck = BlackjackHand()
+            for suit in ['h','d','s','c']:
+                for rank in ['A','2','3','4','5','6','7','8','9','10','J','Q','K']:
+                    deck.add(BlackjackCard(rank,suit))
+            deck.shuffle()
+            print("**** SHUFFLING NEW DECK ****")
+            
+        # print round and score
+        print('[ Round {} ] Score: Dealer {} vs. {} {}'.format(round,dealerScore,player.name,playerScore))
+        
+        # print player's balance
+        if round == 1:
+            print('You have an initial balance of ${}.'.format(player.money))
+        else:
+            print('You have a remaining balance of ${}.'.format(player.money))
+        
+        # ask how much player wants to bet
+        playerBet = input('How much would you like to bet this round? ')
+        while(1):
+            try:
+                playerBet = int(playerBet)
+                if playerBet < 2 or playerBet > 500:
+                    1/0
+            except:
+                playerBet = input('The betting limits for each round are $2 to $500. Please bet within the range. ')
+                continue
+            try:
+                if playerBet > player.money:
+                    1/0
+                break
+            except:
+                playerBet = input('You can only bet less than or equal to the amount of money you have. ')
+        # deal
+        player.addCard(BlackjackCard('4','h'))
+        dealer.addCard(deck.deal())
+        player.addCard(BlackjackCard('6','h'))
+        dealer.addCard(deck.deal())
+        
+        # show dealer's face-up card and player's hand
+        print("Dealer's Hand: [{} ??]".format(dealer.hand.cards[0]))
+        print('Your Hand:',player.hand)
+        
+        # check for natural 21
+        if player.hand.getTotalWithAce() == 21 and dealer.hand.getTotalWithAce() < 21:
+            dealer.printHand()
+            print('Blackjack! {} wins! 21 vs. {}'.format(player.name,dealer.hand.getTotalWithAce()))
+            player.addMoney(1.5*playerBet)
+            playerScore += 1
+        elif dealer.hand.getTotalWithAce() == 21 and player.hand.getTotalWithAce() < 21:
+            dealer.printHand()
+            print('Blackjack! Dealer wins! 21 vs.',player.hand.getTotalWithAce())
+            player.addMoney((-1)*playerBet)
+            dealerScore += 1
+        elif dealer.hand.getTotalWithAce() == 21 and player.hand.getTotalWithAce() == 21:
+            dealer.printHand()
+            print("Push! 21 vs. 21")
+        else:
+            
+            endRound = False
+            endGame = False
+            doubleDown = False
+            # ask if player wants to double down
+            if player.hand.getTotalWithAce() == 9 or player.hand.getTotalWithAce() == 10 or player.hand.getTotalWithAce() == 11:
+                double = input('Your hand totals the value of {}. Would you like to double down? (y/n)'.format(player.hand.getTotalWithAce()))
+                while(1):
+                    if double == 'y':
+                        playerBet += playerBet
+                        player.addCard(deck.deal())
+                        player.printHand()
+                        doubleDown = True
+                        break
+                    elif double == 'n':
+                        break
+                    else:
+                        double = input('Please enter a valid input. ')
+                        
+            # ask hit for player
+            if doubleDown == False:
+                while player.askHit() == True:
+                    player.addCard(deck.deal())
+                    player.printHand()
+                    # check if player busts
+                    if player.hand.bust() == True:
+                        print('Dealer wins! {} busts with {}'.format(player.name,player.hand.getTotalWithAce()))
+                        player.addMoney((-1)*playerBet)
+                        dealerScore += 1
+                        # if player is out of money, end the game
+                        if player.money <= 0:
+                            print()
+                            print('Game over! You lost all your money!')
+                            endGame = True
+                            break
+                        endRound = True
+                        break
+            
+            # end round if player busts
+            if endRound == True:
+                dealer.tossHand()
+                player.tossHand()
+                print()
+                continue
+            
+            # end game if player runs out of money
+            if endGame == True:
+                break
+            
+            # ask hit for dealer
+            dealer.printHand()
+            while dealer.askHit() == True:
+                dealer.addCard(deck.deal())
+                dealer.printHand()
+                # check if dealer busts
+                if dealer.hand.bust() == True:
+                    print('{} wins! Dealer busts with {}'.format(player.name,dealer.hand.getTotalWithAce()))
+                    player.addMoney(playerBet)
+                    playerScore += 1
+                    endRound = True
+                    break
+                
+            # end round if dealer busts
+            if endRound == True:
+                dealer.tossHand()
+                player.tossHand()
+                print()
+                continue
+            
+            # check who won
+            if player.hand.getTotalWithAce() == dealer.hand.getTotalWithAce():
+                print('Push!', player.hand.getTotalWithAce(), 'vs.',dealer.hand.getTotalWithAce())
+            elif player.hand.getTotalWithAce() > dealer.hand.getTotalWithAce():
+                print(player.name,'wins!',player.hand.getTotalWithAce(),'vs.',dealer.hand.getTotalWithAce())
+                player.addMoney(playerBet)
+                playerScore += 1
+            else:
+                print('Dealer wins!',dealer.hand.getTotalWithAce(),'vs.',player.hand.getTotalWithAce())
+                player.addMoney((-1)*playerBet)
+                dealerScore += 1
+        # if player runs out of money, end the game
+        if player.money <= 0:
+            print()
+            print('Game over! You lost all your money!')
+            break
+        # reset
+        dealer.tossHand()
+        player.tossHand()
+        print()
+    # print final score and balance
+    if player.money != 0:
+        print('You have a final balance of ${}.'.format(player.money))
+    print('| Final Score: Dealer',dealerScore,'vs',player.name,playerScore,'|')
+        
+    
+# add any other helper functions to organize your code nicely
+    
+def main():
+    BlackjackGame()
+    
+if __name__ == "__main__":
+    main()
+    
+        
+

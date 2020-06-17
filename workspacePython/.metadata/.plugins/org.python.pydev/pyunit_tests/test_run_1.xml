@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pydev-testrun version="1.0"?><pydev-testsuite>
+<summary errors="0" failures="1" finished="true" name="Test Run: 1" tests="2" total_time="Finished in: 0.00 secs."/>
+<test location="C:\Users\Mark_Kwong\Dropbox\LHS Shared New\PythonWorkspace\Basic Test Case\basictests.py" status="ok" test="BasicTests.testOne" time="0.00">
+<stdout/>
+<stderr/>
+</test>
+<test location="C:\Users\Mark_Kwong\Dropbox\LHS Shared New\PythonWorkspace\Basic Test Case\basictests.py" status="fail" test="BasicTests.testTwo" time="">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "C:\Users\Mark_Kwong\Dropbox\LHS Shared New\PythonWorkspace\Basic Test Case\basictests.py", line 13, in testTwo
+    self.assertEqual(self.b.square(3),9)
+AssertionError: 6 != 9
+]]></stderr>
+</test>
+<launch mode="run">
+<launch_memento><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration local="true" path="Basic Test Case basictests.py"/>
+]]></launch_memento>
+</launch>
+</pydev-testsuite>

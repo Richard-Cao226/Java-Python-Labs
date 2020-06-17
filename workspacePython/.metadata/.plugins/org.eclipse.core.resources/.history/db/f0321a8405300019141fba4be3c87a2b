@@ -1,0 +1,91 @@
+'''
+Created on Feb 6, 2019
+
+@author: 
+'''
+from card import Card
+from cards import Cards
+from player import Player
+
+# make a BlackjackCard Class inherit from Card
+class BlackjackCard(Card):
+    #gets value of card
+    def getValue(self):
+        if self.rank == 'A':
+            return 11
+        elif self.rank in 'JQK10':
+            return 10
+        elif self.rank in '23456789':
+            return int(self.rank)
+
+# make a BlackjackHand Class
+class BlackjackHand(Cards):
+    #gets total value of a set of cards
+    def getTotalWithAce(self):
+        sortedCards = self.cards[:]
+        for card in self.cards:
+            if card.rank == 'A':
+                sortedCards.append(card)
+            else:
+                sortedCards.insert(0,card)
+        print(sortedCards[0], sortedCards[1], sortedCards[2])
+        total = 0        
+        for card in sortedCards:
+            if card.rank == 'A' and total + 11 > 21:
+                total += 1
+            else:
+                total += card.getValue()
+        return total
+    #determines whether value of cards is over 21
+    def bust(self):
+        if self.getTotalAce() > 21:
+            return True
+        else:
+            return False
+ 
+#test cases   
+a = BlackjackHand()
+a.add(BlackjackCard('A','h'))
+a.add(BlackjackCard('8','h'))
+a.add(BlackjackCard('9','h'))
+
+print(a.getTotalWithAce())
+
+# make a BlackjackPlayer Class
+class BlackjackPlayer(Player): 
+    def askHit(self,dealerCard):
+        print("Dealer's Hand: [{} ??]".format(dealerCard))
+        deal = input(self.name+', would you like to hit? (yes/no')
+        if deal == 'yes':
+            return True
+        else:
+            return False
+                  
+# make a BlackjackDealer Class 
+#class BlackjackDealer(BlackjackPlayer):
+    #def askHit(self):
+        #if self.hand.bust() == False and 
+# make a BlackjackGame function
+#def BlackjackGame():
+        
+    # make the 2 players
+    #dealer = BlackjackDealer("Dealer", 1)
+    #player = BlackjackPlayer("Player", 1)
+    
+    # make a deck of card
+    #deck = Cards()  # make empty deck
+    # add the 52-cards and shuffle
+    
+    # make rest of the game
+    #print("I need to implement the game still...")
+    
+# add any other helper functions to organize your code nicely
+    
+#def main():
+    #BlackjackGame()
+    
+#if __name__ == "__main__":
+    #main()
+    
+        
+

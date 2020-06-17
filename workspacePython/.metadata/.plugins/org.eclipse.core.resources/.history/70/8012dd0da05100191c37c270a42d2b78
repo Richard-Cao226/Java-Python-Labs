@@ -1,0 +1,165 @@
+import java.util.*;
+
+/**
+ * Chapter 15 to 20
+ * Selected problems with while loops and random number generation
+ * 
+ * @author TODO Richard Cao
+ * @version TODO 3/28
+ * @author Period - TODO 6
+ * @author Assignment - Ch15Ex1to3
+ * @author Sources - TODO list collaborators
+ */
+
+public class Ch15to20PS
+{
+    Scanner scan;
+    Random rand = new Random();
+
+    /**
+     * Constructs a Scanner for input from the console.
+     */
+    public Ch15to20PS()
+    {
+        scan = new Scanner( System.in );
+    }
+
+    /**
+     * Constructs a Scanner to evaluate passed input (used for testing).
+     * 
+     * @param str  input for the various methods
+     */
+    public Ch15to20PS( String str )
+    {
+        scan = new Scanner( str );
+    }
+    
+    /**
+     * Constructs a Scanner to evaluate passed input (used for testing).
+     * 
+     * @param str  input for the various methods
+     * @param seed  seed to use for random number generator
+     */    
+    public Ch15to20PS( String str, long seed )
+    {
+        scan = new Scanner( str );
+        rand.setSeed( seed );
+    }
+
+    /**
+     * TODO Description
+     */
+    public void repeatWord()
+    {
+    	String inputString;
+    	int times, count;
+        System.out.println("Enter a word:");
+        inputString = scan.nextLine();
+        times = inputString.length();
+        count = 1;
+        while(count <= times) {
+        	System.out.println(inputString);
+        	count += 1;
+        }
+    }
+
+    /**
+     * TODO Description
+     */
+    public void shippingCostCalc()
+    {
+        int weight = 1;
+        double cost;
+        while(weight != 0) {
+        	System.out.println("Weight of Order:");
+        	weight = scan.nextInt();
+        	if(weight > 10) {
+        		cost = 3 + 0.25 * (weight - 10);
+        	} else {
+        		cost = 3;
+        	}
+        	System.out.println("Shipping Cost: $"+cost);
+        	System.out.println();
+        }
+        System.out.println("bye");
+    }
+    
+    /**
+     * TODO Description
+     */
+    public void randomWalk2D()
+    {
+        // TODO Your code goes here
+    }
+    
+    /**
+     * TODO Description
+     */   
+    public void furtherImprovedGuessingGame()
+    {
+        // TODO Your code goes here
+    }
+
+    /**
+     * Testing method: instantiates a Ch15to20PS object and then invokes
+     * each method.
+     * 
+     * @param args  command line parameters (not used)
+     */
+    public static void main( String[] args )
+    {
+        Scanner kbd = new Scanner( System.in );
+        boolean done = false;
+
+        Ch15to20PS exercise = new Ch15to20PS();
+
+        do
+        {
+            System.out.println();
+            System.out.println();
+            System.out.println( "Make a selection" );
+            System.out.println();
+            System.out.println( "   (1) Repeat Word" );
+            System.out.println( "   (2) Shipping Cost Calculator" );
+            System.out.println( "   (3) randomWalk2D" );
+            System.out.println( "   (4) Further Improved Guessing Game" );
+            System.out.println( "   (Q) Quit" );
+            System.out.println();
+            System.out.print( "Enter a choice:  " );
+            String response = kbd.nextLine();
+
+            if ( response.length() > 0 )
+            {
+                System.out.println();
+
+                switch ( response.charAt( 0 ) )
+                {
+                    case '1':
+                        exercise.repeatWord();
+                        break;
+                    case '2':
+                        exercise.shippingCostCalc();
+                        break;
+                    case '3':
+                        exercise.randomWalk2D();
+                        break;
+                    case '4':
+                        exercise.furtherImprovedGuessingGame();
+                        break;
+                    default:
+                        if ( response.toLowerCase().charAt( 0 ) == 'q' )
+                        {
+                            done = true;
+                        }
+                        else
+                        {
+                            System.out.print( "Invalid Choice" );
+                        }
+                        break;
+                }
+            }
+        } while ( !done );
+
+        System.out.println( "Goodbye!" );
+    }
+}

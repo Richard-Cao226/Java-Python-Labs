@@ -1,0 +1,24 @@
+-- VERSION_5
+-- START DISKCACHE_2
+C:\Users\rcao266\Dropbox\workspacePython\.metadata\.plugins\org.eclipse.core.resources\.projects\Practice Problems\com.python.pydev.analysis\v2_indexcache
+PP.__init__|1549953450000000000|C:\Users\rcao266\Dropbox\workspacePython\Practice Problems\PP\__init__.py
+-- END DISKCACHE
+-- START DICTIONARY
+4
+3=Line
+1=C:\Users\rcao266\Dropbox\workspacePython\Practice Problems\PP\__init__.py
+4=Line.__init__
+2=PP.__init__
+-- END DICTIONARY
+-- START TREE 1
+1
+lin|1|Line!1^54#7*17@
+-- END TREE
+-- START TREE 2
+5
+__i|1|__init__!3&1^55#9*18@
+__s|1|__str__!3&1^60#9*18@
+get|1|get!3&1^58#9*18@
+int|1|intercept!4&1^57#9*19@
+slo|1|slope!4&1^56#9*19@
+-- END TREE

@@ -1,0 +1,2 @@
+INDEX VERSION 1.131+C:\Users\Richard\Dropbox\workspacePython\.metadata\.plugins\org.eclipse.jdt.core
+2221902718.index
